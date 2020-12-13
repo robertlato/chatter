@@ -69,7 +69,6 @@ if ((isset($_SESSION['email']))) {
 </div>
 
 <div class="container" style="background-color:#f1f1f1">
-    <!--            <button type="button" class="cancelbtn">Cancel</button>-->
     <span class="password">Nie pamiętasz <a href="#">hasła?</a></span>
 </div>
 

@@ -30,10 +30,6 @@ if (filter_has_var(INPUT_POST, 'submit')) {
             // czyli zadna informacja nie zostaje zaktualizowana
             $toBeChanged['email'] = $nowyEmail;
         }
-//    } else {
-//        array_push($toBeChanged, 'email');
-//        $toBeChanged = 'email';
-//        updateValue($connection, $nowyEmail, $toBeChanged);
     }
 
     if ($noweImie !== $_SESSION['imie']) {
@@ -43,10 +39,6 @@ if (filter_has_var(INPUT_POST, 'submit')) {
         } else {
             $toBeChanged['imie'] = $noweImie;
         }
-//    } else {
-//        array_push($toBeChanged, 'imie');
-//        $toBeChanged = 'imie';
-//        updateValue($connection, $noweImie, $toBeChanged);
     }
 
     if ($noweNazwisko !== $_SESSION['nazwisko']) {
@@ -56,10 +48,6 @@ if (filter_has_var(INPUT_POST, 'submit')) {
         } else {
             $toBeChanged['nazwisko'] = $noweNazwisko;
         }
-//    } else {
-//        array_push($toBeChanged, 'nazwisko');
-//        $toBeChanged = 'email';
-//        updateValue($connection, $noweNazwisko, $toBeChanged);
     }
 
     foreach ($toBeChanged as $key => $value) {

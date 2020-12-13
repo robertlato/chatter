@@ -49,6 +49,8 @@
         } else if ($_GET['error'] === 'logoutfail') {
             echo "Nie udało się wylogować";
         }
+    } else if (isset($_GET['userdeleted'])) {
+        echo "Konto zostało pomyślnie usunięte! Pamiętaj, że zawsze możesz zarejestrować się ponownie. Do zobaczenia.";
     }
     ?>
     <div class="container">
@@ -59,7 +61,6 @@
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-<!--            <button type="button" class="cancelbtn">Cancel</button>-->
         <span class="password">Nie pamiętasz <a href="#">hasła?</a></span>
     </div>
 

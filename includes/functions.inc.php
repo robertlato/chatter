@@ -148,16 +148,8 @@ function passwordMatch($pwd, $repeatPwd) {
 }
 
 function changePassword($conn, $currentPwd, $newPwd, $userEmail){
-    // sprawdz czy currentPwd zgadza sie z hasłem użytkownika
-    // możesz ściągnąć cały row przez userExists
-    // jeżeli się zgadza to zmieniasz hasła
 
     $userExists = userExists($conn, $userEmail);
-
-//    if ($userExists === false) {
-//        header("Location: /templates/login.php?error=wronglogin");
-//        exit();
-//    }
 
     // weryfikuj haslo
     $hashedPwd = $userExists['haslo'];
@@ -177,4 +169,20 @@ function changePassword($conn, $currentPwd, $newPwd, $userEmail){
         header("Location: /templates/changepwd.php?error=wrongpwd");
         exit();
     }
+}
+
+function deleteUser($conn, $email) {
+    $userExists = userExists($conn, $email);
+
+//    $stmt = $conn->prepare("UPDATE uzytkownicy SET haslo = ? WHERE email = ?;");
+    $stmt = $conn->prepare("DELETE FROM uzytkownicy WHERE email = ? ;");
+    if ($stmt === false) {
+        header("Location: /templates/deleteuser.php?error=stmtfail");
+        exit();
+    }
+    $stmt->bind_param("s", $email);
+    if ($stmt->execute()) {
+        $stmt->close();
+        return true;
+    } else return false;
 }
