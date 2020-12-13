@@ -1,14 +1,14 @@
-<?php
-require_once 'header.php';
-?>
+<!DOCTYPE html>
+<html lang="pl">
 
-<?php
-if (isset($_GET['error'])) {
-    if ($_GET['error'] === 'logoutfail') {
-        echo "Nie udało się wylogować";
-    }
-}
-?>
+    <?php include 'header.php'; ?>
 
-</body>
+    <?php
+        if (isset($_GET['error'])) {
+            if ($_GET['error'] === 'logoutfail') {
+                echo "Nie udało się wylogować";
+            }
+        }
+    ?>
+    </body>
 </html>

@@ -8,9 +8,4 @@
     } else {
         header('Location: templates/login.php');
     }
-
-
-    //$zmienna = "Hello world!123";
-    //echo htmlspecialchars($zmienna);
-
 ?>
