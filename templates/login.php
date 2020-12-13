@@ -11,10 +11,11 @@
 <html lang="pl">
     <head>
         <title>Chatter</title>
-        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link">
         <meta charset="UTF-8">
     </head>
     <body>
+        <button class="btn-toggle">Przełącz tryb ciemny</button>
         <form action="/includes/login.inc.php" method="post">
             <div class="imgcontainer">
                 <img src="/img/defaultpicture.jpg" alt="Avatar" class="avatar">
@@ -27,9 +28,6 @@
                 <input id="password" type="password" placeholder="Wprowadź hasło" name="password" required>
 
                 <button name="submit" type="submit">Zaloguj się</button>
-                <label>
-                    <input type="checkbox" name="remember"> Zapamiętaj mnie
-                </label>
             </div>
         </form>
         <div class="container">
@@ -38,7 +36,7 @@
                 Zarejestruj się
             </button>
         </div>
-        <div class="container" style="background-color:#f1f1f1">
+        <div class="container"">
             <span class="password">Nie pamiętasz <a href="#">hasła?</a></span>
         </div>
         <div class="container">
@@ -60,5 +58,6 @@
             }
             ?>
         </div>
+        <script src="/js/myscript.js"></script>
     </body>
 </html>

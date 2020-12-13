@@ -11,10 +11,11 @@ if ((isset($_SESSION['email']))) {
 <html lang="pl">
     <head>
         <title>Chatter</title>
-        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link">
         <meta charset="UTF-8">
     </head>
     <body>
+    <button class="btn-toggle">Przełącz tryb ciemny</button>
     <form action="/includes/signup.inc.php" method="post">
         <div class="imgcontainer">
             <img src="/img/defaultpicture.jpg" alt="Avatar" class="avatar">
@@ -64,5 +65,6 @@ if ((isset($_SESSION['email']))) {
     <div class="container" style="background-color:#f1f1f1">
         <span class="password">Nie pamiętasz <a href="#">hasła?</a></span>
     </div>
+    <script src="/js/myscript.js"></script>
     </body>
 </html>
