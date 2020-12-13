@@ -19,7 +19,7 @@ function invalidEmail($email) {
 
 function invalidPassword($pwd) {
     $len = strlen($pwd);
-    if ($len > 40) {
+    if ($len > 40 || $len < 6) {
         return true;
     } else {
         return false;
@@ -142,3 +142,39 @@ function updateValue($connection, $newValue, $toBeChanged, $userEmail) {
 
 }
 
+
+function passwordMatch($pwd, $repeatPwd) {
+    return $pwd === $repeatPwd;
+}
+
+function changePassword($conn, $currentPwd, $newPwd, $userEmail){
+    // sprawdz czy currentPwd zgadza sie z hasłem użytkownika
+    // możesz ściągnąć cały row przez userExists
+    // jeżeli się zgadza to zmieniasz hasła
+
+    $userExists = userExists($conn, $userEmail);
+
+//    if ($userExists === false) {
+//        header("Location: /templates/login.php?error=wronglogin");
+//        exit();
+//    }
+
+    // weryfikuj haslo
+    $hashedPwd = $userExists['haslo'];
+
+    if (password_verify($currentPwd, $hashedPwd)) {
+        // zmien haslo
+        $hashedNewPwd = password_hash($newPwd, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("UPDATE uzytkownicy SET haslo = ? WHERE email = ?;");
+        if ($stmt === false) {
+            header("Location: /templates/changepwd.php?error=stmtfail");
+            exit();
+        }
+        $stmt->bind_param("ss", $hashedNewPwd, $userEmail);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        header("Location: /templates/changepwd.php?error=wrongpwd");
+        exit();
+    }
+}

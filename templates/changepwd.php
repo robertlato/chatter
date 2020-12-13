@@ -22,16 +22,18 @@ require_once 'header.php';
 
         <?php
         if (isset($_GET['success'])) {
-            echo "Dane zaktualizowane";
+            echo "Hasło zostało zmienione";
         } else if(isset($_GET['error'])) {
-            if ($_GET['error'] === 'userexists') {
-                echo "Użytkownik o podanym adresie e-mail już istnieje";
-            } else if ($_GET['error'] === 'invalidemail') {
-                echo "Wprowadź poprawny adres e-mail";
-            } else if ($_GET['error'] === 'invalidvalue') {
-                echo "Wprowadź poprawne dane";
+            if ($_GET['error'] === 'invalidpassword') {
+                echo "Wprowadź poprawne hasła";
+            } else if ($_GET['error'] === 'pwdmismatch') {
+                echo "Powtórz poprawnie nowe hasło";
+            } else if ($_GET['error'] === 'noinput') {
+                echo "Wprowadź dane";
             } else if ($_GET['error'] === 'stmtfail') {
                 echo "Błędne zapytanie do bazy danych";
+            } else if($_GET['error'] === 'wrongpwd') {
+                echo "Wprowadź poprawne hasło";
             }
         }
         ?>
