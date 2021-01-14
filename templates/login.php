@@ -44,7 +44,7 @@
                 Zarejestruj się
             </button>
         </div>
-        <div class="container"">
+        <div class="container">
             <span class="password">Nie pamiętasz <a href="#">hasła?</a></span>
         </div>
         <div class="container">

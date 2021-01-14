@@ -8,13 +8,13 @@
         <div class="daneUzytkownika">
             <form action="/includes/changepwd.inc.php" method="post">
                 <label for="currentPwd">Aktualne hasło: </label>
-                <input type="password" name="currentPwd" required>
+                <input type="password" name="currentPwd" id="currentPwd" required>
 
                 <label for="newPwd">Nowe hasło: </label>
-                <input type="password" name="newPwd" required>
+                <input type="password" name="newPwd" id="newPwd" required>
 
                 <label for="repeatPwd">Powtórz nowe hasło: </label>
-                <input type="password" name="repeatPwd" required>
+                <input type="password" name="repeatPwd" id="repeatPwd" required>
 
                 <button name="submit" type="submit">Zapisz</button>
             </form>

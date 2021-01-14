@@ -4,7 +4,7 @@
     <?php include 'header.php'; ?>
 
     <div class="container">
-        <?php echo "<img src='/img/".$_SESSION['img']."' width='200px'>"; ?>
+        <?php echo "<img src='/img/".$_SESSION['img']."' width='200' alt='profile_image'>\n"; ?>
         <form action="/includes/upload.inc.php" method="post" enctype="multipart/form-data">
             <input type="file" accept="image/*" name="profilowe">
             <button type="submit" name="submit">

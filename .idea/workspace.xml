@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbdfe308-2db0-4f14-bd38-e70cee4aed5b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/myscript.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/myscript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/changepwd.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/changepwd.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/editprofile.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editprofile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +66,7 @@
       <workItem from="1607776039512" duration="4007000" />
       <workItem from="1607789208487" duration="22129000" />
       <workItem from="1607850422569" duration="41206000" />
-      <workItem from="1610650827859" duration="5155000" />
+      <workItem from="1610650827859" duration="8955000" />
     </task>
     <servers />
   </component>
