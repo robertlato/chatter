@@ -1,4 +1,12 @@
 <?php
+
+    if (isset($_COOKIE['theme'])) {
+        $themeLink = $_COOKIE['theme'];
+    } else {
+        $themeLink = "/css/light-theme.css";
+        $_COOKIE['theme'] = "light";
+    }
+
     session_start();
 
     // sprawdz czy uzytkownik jest zalogowany
@@ -11,7 +19,7 @@
 <html lang="pl">
     <head>
         <title>Chatter</title>
-        <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link">
+        <link type="text/css" href="<?php echo $themeLink; ?>" rel="stylesheet" id="theme-link">
         <meta charset="UTF-8">
     </head>
     <body>

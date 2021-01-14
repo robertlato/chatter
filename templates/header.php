@@ -1,6 +1,16 @@
+<?php
+    if (isset($_COOKIE['theme'])) {
+        $themeLink = $_COOKIE['theme'];
+    } else {
+        $themeLink = "/css/light-theme.css";
+        $_COOKIE['theme'] = "light";
+    }
+?>
+
 <head>
     <meta charset="UTF-8">
-    <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link">
+    <!-- <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link"> -->
+    <link type="text/css" href="<?php echo $themeLink; ?>" rel="stylesheet" id="theme-link">
     <title>Chatter</title>
 </head>
 <body>
