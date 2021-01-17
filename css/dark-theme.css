@@ -55,3 +55,18 @@ input, select {
 h2 {
     text-align: center;
 }
+
+#users {
+    float: left;
+    background: #0033cc;
+    padding: 100px;
+}
+
+#messages {
+    float: right;
+    background: darkred;
+}
+
+#sendMessage {
+    margin: 10px;
+}

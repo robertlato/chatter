@@ -186,3 +186,35 @@ function deleteUser($conn, $email) {
         return true;
     } else return false;
 }
+
+function loadUsers($conn) {
+    $stmt = $conn->prepare("SELECT * FROM uzytkownicy ;");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $stmt->execute();
+    $users = $stmt->get_result();
+    $stmt->close();
+
+    while($row = $users->fetch_assoc()) {
+        $result['users'][] = $row;
+    }
+
+    header('Access-Control-Allow-Origin: *');
+    header('Content-Type: application/json');
+
+    return $result;
+}
+
+function sendmessage($conn, $senderID, $recipientID, $message) {
+    $stmt = $conn->prepare("INSERT INTO wiadomosci (idNadawcy, idOdbiorcy, wiadomosc) VALUES (?, ?, ?);");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+
+    $stmt->bind_param("sss", $senderID, $recipientID, $message);
+    $stmt->execute();
+    $stmt->close();
+}

@@ -1,17 +1,26 @@
 <?php
-session_start();
 
-// sprawdz czy uzytkownik jest zalogowany
-if ((isset($_SESSION['email']))) {
-    header('Location: /templates/home.php');
-    exit();
-}
+    if (isset($_COOKIE['theme'])) {
+        $themeLink = $_COOKIE['theme'];
+    } else {
+        $themeLink = "/css/light-theme.css";
+        $_COOKIE['theme'] = "light";
+    }
+
+
+    session_start();
+
+    // sprawdz czy uzytkownik jest zalogowany
+    if ((isset($_SESSION['email']))) {
+        header('Location: /templates/home.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pl">
     <head>
         <title>Chatter</title>
-        <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link">
+        <link type="text/css" href="<?php echo $themeLink; ?>" rel="stylesheet" id="theme-link">
         <meta charset="UTF-8">
     </head>
     <body>
