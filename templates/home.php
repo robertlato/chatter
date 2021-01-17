@@ -20,15 +20,12 @@ if (isset($_GET['error'])) {
         <div id="sendMessage">
             <form>
                 <input type="text" id="send-message" name="send-message" placeholder="Wpisz wiadomość...">
-                <!--                    <input type="hidden" id="recipientID" name="recipientID" value="">-->
-                <!--                    <input type="hidden" id="senderID" name="senderID" value="-->
-                <?php //$_SESSION['id'] ?><!--">-->
                 <button name="submit" type="submit">Wyślij</button>
             </form>
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 <script>
     var myID = <?php echo json_encode($_SESSION['id'], JSON_HEX_TAG); ?>;
     loadUsers();
@@ -115,7 +112,12 @@ if (isset($_GET['error'])) {
     function showMessages(result) {
         var myResult = ``;
         result.messages.forEach(message => {
-            myResult += `<div id="message"><p id="author">${message.imie} ${message.nazwisko}<span>${message.dataUtworzenia}</span></p> ${message.wiadomosc}</div>`;
+            if (message.id == myID) {
+            myResult += `<div id="message-myself"><p>${message.imie} ${message.nazwisko}<span>${message.dataUtworzenia}</span></p> ${message.wiadomosc}</div>`;
+
+            } else {
+                myResult += `<div id="message-recipient"><p>${message.imie} ${message.nazwisko}<span>${message.dataUtworzenia}</span></p> ${message.wiadomosc}</div>`;
+            }
             currentConversationLastMessage = message.dataUtworzenia;
         });
         return myResult;

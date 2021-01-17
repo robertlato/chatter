@@ -280,3 +280,17 @@ function loadNewMessages($conn, $senderID, $recipientID, $lastMessageDate) {
         return $result;
     }
 }
+
+function addFriend($conn, $senderID, $recipientID) {
+    $stmt = $conn->prepare("INSERT INTO znajomi (idNadawcy, idOdbiorcy, status) VALUES (?, ?, ?);");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $zero = 0;
+
+    $stmt->bind_param("sss", $senderID, $recipientID, $zero);
+    $stmt->execute();
+    $stmt->close();
+}
+

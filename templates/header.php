@@ -12,6 +12,7 @@
     <!-- <link type="text/css" href="/css/light-theme.css" rel="stylesheet" id="theme-link"> -->
     <link type="text/css" href="<?php echo $themeLink; ?>" rel="stylesheet" id="theme-link">
     <title>Chatter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <?php
@@ -31,6 +32,8 @@
         <div>
                 <a href="/templates/home.php">Strona domowa</a>
                 <a href="/templates/profile.php">Mój profil</a>
+                <a href="/templates/search.php">Szukaj</a>
+                <a href="/templates/friends.php">Znajomi</a>
                 <a href="/includes/logout.inc.php">Wyloguj</a>
         </div>
     </nav>
