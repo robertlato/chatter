@@ -62,11 +62,39 @@ h2 {
     padding: 100px;
 }
 
-#messages {
+.message-container {
     float: right;
-    background: darkred;
+    background: #fcdab7;
+    width: 800px;
+    margin: 0 auto;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#messages {
+    height: 400px;
+    overflow: auto;
 }
 
 #sendMessage {
     margin: 10px;
+}
+
+#message {
+    background: #133b5c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+}
+
+#message span {
+    float: right;
+}
+
+#author {
+    font-weight: bold;
 }

@@ -218,3 +218,65 @@ function sendmessage($conn, $senderID, $recipientID, $message) {
     $stmt->execute();
     $stmt->close();
 }
+
+function loadConversation($conn, $senderID, $recipientID) {
+//    $stmt = $conn->prepare("SELECT idNadawcy, wiadomosc, dataUtworzenia FROM wiadomosci WHERE (idNadawcy = ? && idOdbiorcy = ?) OR (idNadawcy = ? && idOdbiorcy = ?) ORDER BY dataUtworzenia LIMIT 20;");
+    $stmt = $conn->prepare("SELECT * FROM (SELECT u.id, u.imie, u.nazwisko, w.wiadomosc, w.dataUtworzenia FROM wiadomosci w JOIN uzytkownicy u ON w.idNadawcy = u.id WHERE (w.idNadawcy = ? && w.idOdbiorcy = ?) OR (w.idNadawcy = ? && w.idOdbiorcy = ?) ORDER BY w.dataUtworzenia DESC LIMIT 20) sub ORDER BY dataUtworzenia ASC;");
+    //$stmt = $conn->prepare("SELECT idNadawcy, wiadomosc, dataUtworzenia FROM wiadomosci WHERE (idNadawcy = $senderID && idObiorcy = $recipientID) OR (idNadawcy = $recipientID && idOdbiorcy = $senderID) ORDER BY dataUtworzenia LIMIT 20;");
+
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    } else {
+        $stmt->bind_param("ssss", $senderID, $recipientID, $recipientID, $senderID);
+
+        $stmt->execute();
+
+        $messages = $stmt->get_result();
+
+        $stmt->close();
+
+//        $result = array();
+
+        while($row = $messages->fetch_assoc()) {
+            $result['messages'][] = $row;
+        }
+
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+
+//        $result['messages'][] = array(
+//            array("idNadawcy"=>"1", "wiadomosc"=>"moja wiadomosc", "dataUtworzenia"=>"2021-01-17 01:31:24"));
+
+        return $result;
+    }
+}
+
+function loadNewMessages($conn, $senderID, $recipientID, $lastMessageDate) {
+//    $stmt = $conn->prepare("SELECT idNadawcy, wiadomosc, dataUtworzenia FROM wiadomosci WHERE ((idNadawcy = ? && idOdbiorcy = ?) OR (idNadawcy = ? && idOdbiorcy = ?)) AND (dataUtworzenia > ?) ORDER BY dataUtworzenia;");
+    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, w.wiadomosc, w.dataUtworzenia FROM wiadomosci w JOIN uzytkownicy u ON w.idNadawcy = u.id WHERE ((w.idNadawcy = ? && w.idOdbiorcy = ?) OR (w.idNadawcy = ? && w.idOdbiorcy = ?)) AND (w.dataUtworzenia > ?) ORDER BY w.dataUtworzenia;");
+//    $stmt = $conn->prepare("SELECT * FROM (SELECT u.imie, u.nazwisko, w.wiadomosc, w.dataUtworzenia FROM wiadomosci w JOIN uzytkownicy u ON w.idNadawcy = u.id WHERE ((w.idNadawcy = ? && w.idOdbiorcy = ?) OR (w.idNadawcy = ? && w.idOdbiorcy = ?)) AND (w.dataUtworzenia > ?) ORDER BY w.dataUtworzenia DESC LIMIT 20) sub ORDER BY dataUtworzenia ASC;");
+
+
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    } else {
+        $stmt->bind_param("sssss", $senderID, $recipientID, $recipientID, $senderID, $lastMessageDate);
+
+        $stmt->execute();
+
+        $messages = $stmt->get_result();
+
+        $stmt->close();
+
+        while($row = $messages->fetch_assoc()) {
+            $result['messages'][] = $row;
+        }
+
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+
+        return $result;
+    }
+}

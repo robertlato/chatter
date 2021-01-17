@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbdfe308-2db0-4f14-bd38-e70cee4aed5b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/includes/loadconversation.inc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/includes/loadnewmessages.inc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/dark-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/dark-theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/functions.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/functions.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +82,7 @@
       <workItem from="1610810308988" duration="1250000" />
       <workItem from="1610813985591" duration="23230000" />
       <workItem from="1610844995625" duration="74000" />
-      <workItem from="1610877741182" duration="1075000" />
+      <workItem from="1610877741182" duration="23006000" />
     </task>
     <servers />
   </component>
