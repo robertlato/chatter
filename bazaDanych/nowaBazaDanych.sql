@@ -14,28 +14,20 @@ CREATE TABLE uzytkownicy (
 );
 
 
-CREATE TABLE konwersacje
-(
-	id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idAutora integer NOT NULL REFERENCES uzytkownicy,
-	dataUtworzenia datetime NOT NULL
-);
-
-
 CREATE TABLE wiadomosci
 (
-	id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
     idNadawcy integer NOT NULL REFERENCES uzytkownicy,
-    idKonwersacji integer NOT NULL REFERENCES konwersacje,
+    idOdbiorcy integer NOT NULL REFERENCES uzytkownicy,
     wiadomosc varchar(255) NOT NULL,
-	dataUtworzenia datetime NOT NULL
+    dataUtworzenia datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
-CREATE TABLE uczestnicy
+CREATE TABLE znajomi
 (
-	id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    idUżytkownika integer NOT NULL REFERENCES uzytkownicy,
-    idKonwersacji integer NOT NULL REFERENCES konwersacje,
-	dataUtworzenia datetime NOT NULL
+    id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idNadawcy integer NOT NULL REFERENCES uzytkownicy,
+    idOdbiorcy integer NOT NULL REFERENCES uzytkownicy,
+    status integer NOT NULL
 );

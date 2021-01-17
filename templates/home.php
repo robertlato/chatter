@@ -68,7 +68,7 @@ if (isset($_GET['error'])) {
     }
 
     function sendMessage() {
-        $('form').submit(function (e) {
+        $('form').submit(function () {
             $.post("/includes/sendmessage.inc.php", {
                 message: $('#send-message').val(),
                 recipientID: currentRecipientId,
@@ -95,6 +95,7 @@ if (isset($_GET['error'])) {
 
     // zaladuj 20 ostatnich wiadomosci miedzy myId a currentRecipientId
     function loadConversation() {
+        $('#messages').html('');
         $.get("/includes/loadconversation.inc.php", {
             recipientID: currentRecipientId,
             senderID: myID

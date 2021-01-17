@@ -56,3 +56,60 @@ input, select {
 h2 {
     text-align: center;
 }
+
+#users {
+    float: left;
+}
+
+.message-container {
+    color: #eee;
+    float: right;
+    background: #fcdab7;
+    width: 800px;
+    margin: 0 auto;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#messages {
+    height: 400px;
+    overflow: auto;
+}
+
+#sendMessage {
+    margin: 10px;
+}
+
+
+#messages span {
+    float: right;
+}
+
+#message-myself {
+    background: #1e5f74;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+}
+
+#message-recipient {
+    background: #1d2d50;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+}
+
+#message-myself p {
+    font-weight: bold;
+}
+
+#message-recipient p {
+    font-weight: bold;
+}
