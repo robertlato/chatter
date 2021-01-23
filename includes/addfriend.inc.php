@@ -8,7 +8,7 @@ if(filter_has_var(INPUT_GET, 'recipientID')) {
 
     session_start();
     // zapisz dane
-    $senderID =$_SESSION['id'];
+    $senderID = $_SESSION['id'];
     $recipientID = htmlspecialchars($_GET['recipientID']);
 
     // polacz z baza danych

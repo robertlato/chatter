@@ -16,6 +16,9 @@ if (isset($_GET['error'])) {
     </div>
 </div>
 
+<script>
+    var myID = <?php echo json_encode($_SESSION['id'], JSON_HEX_TAG); ?>;
+</script>
 <script src="/js/chat.js"></script>
 
 <script>

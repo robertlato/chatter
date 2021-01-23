@@ -236,7 +236,6 @@ function loadConversation($conn, $senderID, $recipientID) {
 
         $stmt->close();
 
-//        $result = array();
 
         while($row = $messages->fetch_assoc()) {
             $result['messages'][] = $row;
@@ -245,17 +244,13 @@ function loadConversation($conn, $senderID, $recipientID) {
         header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
 
-//        $result['messages'][] = array(
-//            array("idNadawcy"=>"1", "wiadomosc"=>"moja wiadomosc", "dataUtworzenia"=>"2021-01-17 01:31:24"));
 
         return $result;
     }
 }
 
 function loadNewMessages($conn, $senderID, $recipientID, $lastMessageDate) {
-//    $stmt = $conn->prepare("SELECT idNadawcy, wiadomosc, dataUtworzenia FROM wiadomosci WHERE ((idNadawcy = ? && idOdbiorcy = ?) OR (idNadawcy = ? && idOdbiorcy = ?)) AND (dataUtworzenia > ?) ORDER BY dataUtworzenia;");
     $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, w.wiadomosc, w.dataUtworzenia FROM wiadomosci w JOIN uzytkownicy u ON w.idNadawcy = u.id WHERE ((w.idNadawcy = ? && w.idOdbiorcy = ?) OR (w.idNadawcy = ? && w.idOdbiorcy = ?)) AND (w.dataUtworzenia > ?) ORDER BY w.dataUtworzenia;");
-//    $stmt = $conn->prepare("SELECT * FROM (SELECT u.imie, u.nazwisko, w.wiadomosc, w.dataUtworzenia FROM wiadomosci w JOIN uzytkownicy u ON w.idNadawcy = u.id WHERE ((w.idNadawcy = ? && w.idOdbiorcy = ?) OR (w.idNadawcy = ? && w.idOdbiorcy = ?)) AND (w.dataUtworzenia > ?) ORDER BY w.dataUtworzenia DESC LIMIT 20) sub ORDER BY dataUtworzenia ASC;");
 
 
     if ($stmt === false) {
@@ -294,3 +289,75 @@ function addFriend($conn, $senderID, $recipientID) {
     $stmt->close();
 }
 
+function loadInvites($conn, $myID) {
+
+    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img FROM znajomi z JOIN uzytkownicy u ON z.idNadawcy = u.id WHERE z.idOdbiorcy = ? AND z.status = 0;");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $stmt->bind_param("s", $myID);
+
+    $stmt->execute();
+    $users = $stmt->get_result();
+    $stmt->close();
+
+    $result = array();
+
+    while($row = $users->fetch_assoc()) {
+        $result['users'][] = $row;
+    }
+
+    header('Access-Control-Allow-Origin: *');
+    header('Content-Type: application/json');
+
+    return $result;
+}
+
+function setInvitationResponse($conn, $myID, $recipientID, $status) {
+    $stmt = $conn->prepare("UPDATE znajomi SET status = ? WHERE idNadawcy = ? AND idOdbiorcy = ?;");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $stmt->bind_param("sss",$status, $recipientID, $myID);
+    $stmt->execute();
+    $stmt->close();
+}
+
+function loadFriendsList($conn, $myID) {
+//    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img FROM znajomi z JOIN uzytkownicy u ON z.idNadawcy = u.id WHERE (z.idOdbiorcy = ? OR z.idNadawcy = ?) AND z.status = 1;");
+    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img FROM znajomi z JOIN uzytkownicy u ON ((idNadawcy = u.id AND idNadawcy <> ?) OR (idOdbiorcy = u.id AND idOdbiorcy <> ?)) WHERE (idOdbiorcy = ? OR idNadawcy = ?) AND status = 1;");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $stmt->bind_param("ssss", $myID, $myID, $myID, $myID);
+
+    $stmt->execute();
+    $users = $stmt->get_result();
+    $stmt->close();
+
+    $result = array();
+
+    while($row = $users->fetch_assoc()) {
+        $result['users'][] = $row;
+    }
+
+    header('Access-Control-Allow-Origin: *');
+    header('Content-Type: application/json');
+
+    return $result;
+}
+
+function deteleFriend($conn, $myID, $friendID) {
+
+    $stmt = $conn->prepare("DELETE FROM znajomi WHERE ((idNadawcy = ? AND idOdbiorcy = ?) OR (idNadawcy = ? AND idOdbiorcy = ?)) ;");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $stmt->bind_param("ssss", $myID, $friendID, $friendID, $myID);
+    $stmt->execute();
+    $stmt->close();
+}

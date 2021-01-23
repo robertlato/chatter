@@ -58,6 +58,8 @@ if (isset($_GET['error'])) {
         return myResult;
     }
 
+    document.getElementById("user").addEventListener("click", )
+
     function setCurrentRecipientId(id) {
         currentRecipientId = id;
         $('#currentRecipientId').html(currentRecipientId);
