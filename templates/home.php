@@ -31,7 +31,7 @@ if (isset($_GET['error'])) {
     loadUsers();
     sendMessage();
     var currentRecipientId;
-    var myVar = setInterval(loadUsers, 1000000);
+    var myVar = setInterval(loadUsers, 10000);
     var myInterval = setInterval(loadNewMessages, 10000000000000);
     var currentConversationLastMessage;
 
