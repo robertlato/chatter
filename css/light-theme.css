@@ -59,6 +59,9 @@ h2 {
 
 #users {
     float: left;
+    background: #E8A87C;
+    padding: 50px;
+    border-radius: 5px;
 }
 
 .message-container {
@@ -116,4 +119,49 @@ h2 {
 
 #invitation {
     padding: 100px 100px;
+}
+
+.status{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    /*border-style: solid;*/
+    /*border-width: 2px;*/
+}
+.green{
+    background-color:#58b666;
+}
+.red{
+    background-color:#ff725d;
+}
+
+
+#user {
+    padding: 10px;
+}
+
+#user img {
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 20px;
+    display: block;
+    float: left;
+}
+
+#user span{
+    display: inline-block;
+    margin-left: 10px;
+    float: right;
+    margin-top: 20px;
+}
+
+#user p{
+    display: inline-block;
+    margin-right: 20px;
+}
+
+#user:hover{
+    background-color: #0081cc;
+    cursor: pointer;
 }

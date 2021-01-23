@@ -31,17 +31,20 @@ if (isset($_GET['error'])) {
     loadUsers();
     sendMessage();
     var currentRecipientId;
-    var myVar = setInterval(loadUsers, 10000);
+    var myVar = setInterval(loadUsers, 1000000);
+    var myInterval = setInterval(loadNewMessages, 10000000000000);
     var currentConversationLastMessage;
 
     function loadNewMessagesIntervalSetter() {
         if (currentRecipientId != null) {
-            setInterval(loadNewMessages, 1000);
+            clearInterval(myInterval);
+            myInterval = setInterval(loadNewMessages, 1000);
         }
     }
 
     function loadUsers() {
-        $.get("/includes/loadusers.inc.php", function (result) {
+        // $.get("/includes/loadusers.inc.php", function (result) {
+        $.get("/includes/loadfriendslist.inc.php", function (result) {
             if (result.users) {
                 $('#users').html(showUsers(result));
             } else {
@@ -52,21 +55,39 @@ if (isset($_GET['error'])) {
 
     function showUsers(result) {
         var myResult = ``;
+        let mySpan = ``;
         result.users.forEach(user => {
-            myResult += `<div id="user"><p onclick="setCurrentRecipientId(${user.id});loadConversation()">${user.imie} ${user.nazwisko}</p></div>`;
+            let mySpan = ``;
+            if (user.jestDostepny == 1) {
+                mySpan = `<span class="status green"></span>`;
+            } else {
+                mySpan = `<span class="status red"></span>`;
+            }
+            myResult += `
+<div id="user" onclick="setCurrentRecipientId(${user.id});loadConversation()">
+    <img src="/img/${user.img}" alt="user img">
+    <p>${user.imie} ${user.nazwisko}</p>
+    ${mySpan}
+</div>`;
         })
         return myResult;
     }
 
-    document.getElementById("user").addEventListener("click", )
-
+    // ustaw id oraz imie i nazwisko osoby, z ktora chcesz prowadzic konwersacje
     function setCurrentRecipientId(id) {
+
         currentRecipientId = id;
-        $('#currentRecipientId').html(currentRecipientId);
         document.getElementById('currentRecipientId').value = currentRecipientId;
 
-        // ustaw odswiezanie wiadomosci, jezeli zostal wybrany odbiorca
-        loadNewMessagesIntervalSetter();
+        $.get("/includes/loaduserbyid.inc.php", {
+            userID: id
+        }, function (result) {
+            result = JSON.parse(result);
+            $('#currentRecipientId').html(`Rozmawiasz z: ${result.imie} ${result.nazwisko}`);
+
+            // ustaw odswiezanie wiadomosci, jezeli zostal wybrany odbiorca
+            loadNewMessagesIntervalSetter();
+        });
     }
 
     function sendMessage() {
@@ -125,6 +146,8 @@ if (isset($_GET['error'])) {
         });
         return myResult;
     }
+
+
 </script>
 </body>
 </html>

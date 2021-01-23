@@ -44,6 +44,26 @@ function userExists($conn, $email) {
     }
 }
 
+function loadUserById($conn, $userID) {
+    $stmt = $conn->prepare("SELECT imie, nazwisko FROM uzytkownicy WHERE id = ?;");
+    if ($stmt === false) {
+        header("Location: /templates/home.php?error=stmtfail");
+        exit();
+    }
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+
+    $wynik = $stmt->get_result();
+    $stmt->close();
+
+    if ($row = $wynik->fetch_assoc()) {
+        return $row;
+    } else {
+        return false;
+    }
+
+}
+
 function createUser($conn, $imie, $nazwisko, $email, $pwd) {
     $stmt = $conn->prepare("INSERT INTO uzytkownicy (imie, nazwisko, email, haslo, img, dataUtworzenia, jestDostepny) VALUES (?, ?, ?, ?, 'defaultpicture.jpg', now(), 0);");
     if ($stmt === false) {
@@ -327,7 +347,7 @@ function setInvitationResponse($conn, $myID, $recipientID, $status) {
 
 function loadFriendsList($conn, $myID) {
 //    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img FROM znajomi z JOIN uzytkownicy u ON z.idNadawcy = u.id WHERE (z.idOdbiorcy = ? OR z.idNadawcy = ?) AND z.status = 1;");
-    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img FROM znajomi z JOIN uzytkownicy u ON ((idNadawcy = u.id AND idNadawcy <> ?) OR (idOdbiorcy = u.id AND idOdbiorcy <> ?)) WHERE (idOdbiorcy = ? OR idNadawcy = ?) AND status = 1;");
+    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img, u.jestDostepny FROM znajomi z JOIN uzytkownicy u ON ((idNadawcy = u.id AND idNadawcy <> ?) OR (idOdbiorcy = u.id AND idOdbiorcy <> ?)) WHERE (idOdbiorcy = ? OR idNadawcy = ?) AND status = 1;");
     if ($stmt === false) {
         header("Location: /templates/home.php?error=stmtfail");
         exit();
