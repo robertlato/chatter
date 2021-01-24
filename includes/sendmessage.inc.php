@@ -17,12 +17,6 @@
         require_once 'functions.inc.php';
 
         sendmessage($connection, $senderID, $recipientID, $message);
-
-
-
-    } else {
-        header("Location: /templates/editprofile.php");
-        exit();
     }
 
 ?>

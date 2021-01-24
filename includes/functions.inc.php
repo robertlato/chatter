@@ -100,7 +100,6 @@ function loginUser($conn, $email, $password) {
 
         // zaktualizuj status "jestDostepny" na 'prawda'
 
-//        $query = "UPDATE uzytkownicy SET jestDostepny = 1 WHERE email = ?;".$email;
         $stmt = $conn->prepare("UPDATE uzytkownicy SET jestDostepny = 1 WHERE email = ?;");
         if ($stmt === false) {
             header("Location: /templates/login.php?error=stmtfail");
@@ -194,7 +193,6 @@ function changePassword($conn, $currentPwd, $newPwd, $userEmail){
 function deleteUser($conn, $email) {
     $userExists = userExists($conn, $email);
 
-//    $stmt = $conn->prepare("UPDATE uzytkownicy SET haslo = ? WHERE email = ?;");
     $stmt = $conn->prepare("DELETE FROM uzytkownicy WHERE email = ? ;");
     if ($stmt === false) {
         header("Location: /templates/deleteuser.php?error=stmtfail");
@@ -207,12 +205,15 @@ function deleteUser($conn, $email) {
     } else return false;
 }
 
-function loadUsers($conn) {
-    $stmt = $conn->prepare("SELECT * FROM uzytkownicy ;");
+function loadUsers($conn, $myID) {
+    $stmt = $conn->prepare("SELECT u2.id, u2.imie, u2.nazwisko, u2.img FROM uzytkownicy u2 WHERE NOT EXISTS ( SELECT u.id, u.imie, u.nazwisko, u.img, u.jestDostepny FROM znajomi z JOIN uzytkownicy u ON ((idNadawcy = u.id AND idNadawcy <> ?) OR (idOdbiorcy = u.id AND idOdbiorcy <> ?)) WHERE (idOdbiorcy = ? OR idNadawcy = ?) AND status = 1 AND u2.id = u.id) AND u2.id <> ?;");
     if ($stmt === false) {
         header("Location: /templates/home.php?error=stmtfail");
         exit();
     }
+
+    $stmt->bind_param("sssss", $myID, $myID, $myID, $myID, $myID);
+
     $stmt->execute();
     $users = $stmt->get_result();
     $stmt->close();
@@ -221,7 +222,6 @@ function loadUsers($conn) {
         $result['users'][] = $row;
     }
 
-    header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
 
     return $result;
@@ -240,9 +240,7 @@ function sendmessage($conn, $senderID, $recipientID, $message) {
 }
 
 function loadConversation($conn, $senderID, $recipientID) {
-//    $stmt = $conn->prepare("SELECT idNadawcy, wiadomosc, dataUtworzenia FROM wiadomosci WHERE (idNadawcy = ? && idOdbiorcy = ?) OR (idNadawcy = ? && idOdbiorcy = ?) ORDER BY dataUtworzenia LIMIT 20;");
     $stmt = $conn->prepare("SELECT * FROM (SELECT u.id, u.imie, u.nazwisko, w.wiadomosc, w.dataUtworzenia FROM wiadomosci w JOIN uzytkownicy u ON w.idNadawcy = u.id WHERE (w.idNadawcy = ? && w.idOdbiorcy = ?) OR (w.idNadawcy = ? && w.idOdbiorcy = ?) ORDER BY w.dataUtworzenia DESC LIMIT 20) sub ORDER BY dataUtworzenia ASC;");
-    //$stmt = $conn->prepare("SELECT idNadawcy, wiadomosc, dataUtworzenia FROM wiadomosci WHERE (idNadawcy = $senderID && idObiorcy = $recipientID) OR (idNadawcy = $recipientID && idOdbiorcy = $senderID) ORDER BY dataUtworzenia LIMIT 20;");
 
     if ($stmt === false) {
         header("Location: /templates/home.php?error=stmtfail");
@@ -261,7 +259,6 @@ function loadConversation($conn, $senderID, $recipientID) {
             $result['messages'][] = $row;
         }
 
-        header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
 
 
@@ -289,7 +286,6 @@ function loadNewMessages($conn, $senderID, $recipientID, $lastMessageDate) {
             $result['messages'][] = $row;
         }
 
-        header('Access-Control-Allow-Origin: *');
         header('Content-Type: application/json');
 
         return $result;
@@ -328,7 +324,6 @@ function loadInvites($conn, $myID) {
         $result['users'][] = $row;
     }
 
-    header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
 
     return $result;
@@ -346,7 +341,6 @@ function setInvitationResponse($conn, $myID, $recipientID, $status) {
 }
 
 function loadFriendsList($conn, $myID) {
-//    $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img FROM znajomi z JOIN uzytkownicy u ON z.idNadawcy = u.id WHERE (z.idOdbiorcy = ? OR z.idNadawcy = ?) AND z.status = 1;");
     $stmt = $conn->prepare("SELECT u.id, u.imie, u.nazwisko, u.img, u.jestDostepny FROM znajomi z JOIN uzytkownicy u ON ((idNadawcy = u.id AND idNadawcy <> ?) OR (idOdbiorcy = u.id AND idOdbiorcy <> ?)) WHERE (idOdbiorcy = ? OR idNadawcy = ?) AND status = 1;");
     if ($stmt === false) {
         header("Location: /templates/home.php?error=stmtfail");
@@ -364,7 +358,6 @@ function loadFriendsList($conn, $myID) {
         $result['users'][] = $row;
     }
 
-    header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
 
     return $result;

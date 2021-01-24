@@ -12,7 +12,7 @@ if (isset($_GET['error'])) {
 ?>
 
 <div class="container">
-    <div id="users">
+    <div id="searchResults">
     </div>
 </div>
 

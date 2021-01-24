@@ -3,9 +3,9 @@
 function loadUsers() {
     $.get("/includes/loadusers.inc.php", function (result) {
         if (result.users) {
-            $('#users').html(showUsers(result));
+            $('#searchResults').html(showUsers(result));
         } else {
-            $('#users').html("<p>Brak użytkowników do wyświetlenia</p>");
+            $('#searchResults').html("<p>Brak użytkowników do wyświetlenia</p>");
         }
     });
 }
@@ -13,7 +13,7 @@ function loadUsers() {
 function showUsers(result) {
     var myResult = ``;
     result.users.forEach(user => {
-        myResult += `<div id="user"><img src="/img/${user.img}" alt="user img" width="100" height="100"><p>${user.imie} ${user.nazwisko}</p><form><input type="button" value="Dodaj do znajomych" onclick="addFriend(${user.id})"></form></div>`;
+        myResult += `<div id="searchResult"><img src="/img/${user.img}" alt="user img" width="100" height="100"><p>${user.imie} ${user.nazwisko}</p><form><input type="button" value="Dodaj do znajomych" onclick="addFriend(${user.id});loadUsers()"></form></div>`;
     })
     return myResult;
 }
@@ -41,7 +41,7 @@ function showInvites(result) {
 <img src="/img/${user.img}" alt="user img" width="100" height="100">
 <p>${user.imie} ${user.nazwisko}</p>
 <form>
-<input type="button" value="Akceptuj" onclick="setInvitationResponse(${user.id}, 1);loadInvites()">
+<input type="button" value="Akceptuj" onclick="setInvitationResponse(${user.id}, 1);loadInvites();loadUsers()">
 <input type="button" value="Odrzuć" onclick="setInvitationResponse(${user.id}, 2);loadInvites()">
 </form>
 </div>`;
@@ -71,7 +71,7 @@ function showFriends(result) {
     var myResult = ``;
     result.users.forEach(user => {
         myResult += `
-<div id="invite">
+<div id="friend">
 <img src="/img/${user.img}" alt="user img" width="100" height="100">
 <p>${user.imie} ${user.nazwisko}</p>
 <form>

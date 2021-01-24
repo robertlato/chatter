@@ -5,7 +5,6 @@ ini_set('display_errors', 1);
 
     // sprawdz czy przeslano dane
     if(filter_has_var(INPUT_POST, 'submit')) {
-        // todo: sprawdz czy mail jest poprawny
 
         // zapisz dane
         $email = htmlspecialchars($_POST['email']);

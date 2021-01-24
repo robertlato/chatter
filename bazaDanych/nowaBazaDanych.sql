@@ -29,5 +29,6 @@ CREATE TABLE znajomi
     id integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
     idNadawcy integer NOT NULL REFERENCES uzytkownicy,
     idOdbiorcy integer NOT NULL REFERENCES uzytkownicy,
-    status integer NOT NULL
+    status integer NOT NULL,
+    CONSTRAINT unique_relationship UNIQUE (idNadawcy, idOdbiorcy)
 );

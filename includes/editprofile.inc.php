@@ -24,7 +24,8 @@ if (filter_has_var(INPUT_POST, 'submit')) {
             header("Location: /templates/editprofile.php?error=invalidemail");
             exit();
         } else {
-            // email dodajesz jako pierwsza wartosc asocjacyjna - wazne przy aktualizowaniu danych (kolejnosc ma znaczenie w tablicy asoc - sprawdzales)
+            // email dodajesz jako pierwsza wartosc asocjacyjna -
+            // wazne przy aktualizowaniu danych (kolejnosc ma znaczenie w tablicy asoc - sprawdzales)
             // w funkcji aktualizujacej dane najpierw sparwdzasz czy istnieje juz uzytkownik o takim mailu
             // jezeli istnieje to funckja przerywa wykonywanie skryptu i wysyla error + exit()
             // czyli zadna informacja nie zostaje zaktualizowana
