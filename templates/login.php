@@ -66,6 +66,6 @@
             }
             ?>
         </div>
-        <script src="/js/myscript.js"></script>
+        <script src="/js/themetoggle.js"></script>
     </body>
 </html>

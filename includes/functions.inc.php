@@ -357,7 +357,7 @@ function loadFriendsList($conn, $myID) {
     while($row = $users->fetch_assoc()) {
         $result['users'][] = $row;
     }
-
+    header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
 
     return $result;

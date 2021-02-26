@@ -74,6 +74,6 @@
     <div class="container" style="background-color:#f1f1f1">
         <span class="password">Nie pamiętasz <a href="#">hasła?</a></span>
     </div>
-    <script src="/js/myscript.js"></script>
+    <script src="/js/themetoggle.js"></script>
     </body>
 </html>

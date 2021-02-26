@@ -37,4 +37,4 @@
                 <a href="/includes/logout.inc.php">Wyloguj</a>
         </div>
     </nav>
-    <script src="/js/myscript.js"></script>
+    <script src="/js/themetoggle.js"></script>

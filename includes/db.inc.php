@@ -1,7 +1,7 @@
 <?php
 
     $servername = 'localhost';
-    $username = '167866';
+    $username = 'admin';
     $password = 'projektPW!';
     $dbName = "chatter";
 
